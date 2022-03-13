@@ -11,3 +11,10 @@ function callCurrencyEdit(key){
 	document.getElementById('productForm').action = '/product/list/edit/'+key.value;
 	document.getElementById("productForm").submit();
 }
+
+function editProduct(id, key){
+	
+	console.log("productID", id, key);
+	document.getElementById('productForm').action = '/product/list/edit/'+id+'/'+key;
+	document.getElementById("productForm").submit();
+}

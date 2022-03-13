@@ -4,6 +4,7 @@ package com.luminescent.digital.jijobedhybrisspringtestluminescent.model;
 import java.math.BigDecimal;
 import java.util.Currency;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,8 +26,8 @@ public class Price {
 	@Column(nullable = false)
 	private BigDecimal amount;
 
-	@ManyToOne
-	@JoinColumn(nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "product_id")
 	private Product product;
 
 	public Long getId() {

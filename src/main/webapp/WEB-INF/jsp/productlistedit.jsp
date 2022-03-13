@@ -15,17 +15,15 @@
 		<c:forEach var="products" items="${products}">
 			<tr>
 				<td>
-					<input type="text" name="productname" value="${products.name}"/>
+					<c:out value="${products.name}"/>
 				</td>
 				<td>
 				<c:set var="test" value="currency${products.id}"
 				    scope="session" />
-				<input type="text" name="price" value="${sessionScope[test]}"/>
+				<c:out value="${sessionScope[test]}" />
+					
 				</td>
-				<td>
-				<td 
-			 	<button type="submit" value="Submit" />
-			 </td>
+				<td><input type = "button" value = "Edit" onClick="editProduct(${products.id}, '${currency}')"/></td>
 			</tr>
 		</c:forEach>
 		<tr>
@@ -42,9 +40,6 @@
 			</select>
 			</td>
 		 </tr>
-		 <tr>
-			<td><input type = "submit" value = "Submit" /></td>
-		</tr>
 	</table>
 	</form>
 </body>

@@ -9,6 +9,7 @@ Example Attribute Value: <c:out value="${exampleAttribute}" />
 
 <ul>
 	<li><a href="/product/list">List products</a></li>
+	<li><a href="/product/list/edit">Edit Products</a></li>
 </ul>
 
 </body>

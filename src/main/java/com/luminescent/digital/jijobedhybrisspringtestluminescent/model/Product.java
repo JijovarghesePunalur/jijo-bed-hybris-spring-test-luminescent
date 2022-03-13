@@ -34,8 +34,8 @@ public class Product {
 	private Map<Currency, Price> prices = new HashMap<>();
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "sub_id")
-	private Subcategory subcategory;
+	@JoinColumn(name = "category_id")
+	private Category category;
 
 	public Long getId() {
 		return id;
@@ -67,5 +67,13 @@ public class Product {
 
 	public void setPrices(Map<Currency, Price> prices) {
 		this.prices = prices;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.Currency;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.luminescent.digital.jijobedhybrisspringtestluminescent.model.Price;
 import com.luminescent.digital.jijobedhybrisspringtestluminescent.model.Product;
@@ -48,15 +50,22 @@ public class ProductListEditController {
 		
 		ProductBean productBean = new ProductBean();
 		productBean.setProductname(item.getName());
+		productBean.setId(item.getId());
+		productBean.setPrice(item.getPrices().get(Currency.getInstance(key)).getAmount());
+		
+		model.addAttribute("productBean", productBean);
 		
 		setCurrency(key, item, session);
 		return "productlistedit1";
 	}
 
-	@RequestMapping("/product/list/edit/submit")
-	public String submit(ProductBean productBean, Model model, BindingResult bindingResult) {
+	@RequestMapping(value = "/product/list/edit/submit", method = RequestMethod.POST)
+	public String submit(@Valid ProductBean productBean,  final BindingResult bindingResult, Model model, HttpSession session) {
 		
 		if(bindingResult.hasErrors()) {
+			Product item = productService.getProductForId(productBean.getId());
+			model.addAttribute("products", item);
+			setCurrency(productBean.getCurrency(), item, session);
 			return "productlistedit1";
 		}else {
 			
@@ -72,7 +81,7 @@ public class ProductListEditController {
 		
 		productService.save(product);
 		
-		return "redirect:/product/list";
+		return "productlistedit1";
 		}
 	}
 

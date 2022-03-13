@@ -1,41 +1,30 @@
 package com.luminescent.digital.jijobedhybrisspringtestluminescent.model;
 
-
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Product {
-
+public class Category {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
 	@Column(nullable = false)
 	private String name;
-
-	@Column(columnDefinition = "CLOB")
-	private String description;
-
-	@OneToMany(mappedBy = "product")
-	@MapKey(name = "currency")
-	private Map<Currency, Price> prices = new HashMap<>();
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "sub_id")
-	private Subcategory subcategory;
+	@OneToMany(mappedBy = "category")
+	@MapKey(name = "name")
+	private Map<String, Subcategory> subcategory  = new HashMap<>();
 
 	public Long getId() {
 		return id;
@@ -53,19 +42,13 @@ public class Product {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public Map<String, Subcategory> getSubcategory() {
+		return subcategory;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setSubcategory(Map<String, Subcategory> subcategory) {
+		this.subcategory = subcategory;
 	}
+	
 
-	public Map<Currency, Price> getPrices() {
-		return prices;
-	}
-
-	public void setPrices(Map<Currency, Price> prices) {
-		this.prices = prices;
-	}
 }

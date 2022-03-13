@@ -81,7 +81,7 @@ public class ProductListEditController {
 		
 		productService.save(product);
 		
-		return "productlistedit1";
+		return "redirect:/product/list";
 		}
 	}
 
